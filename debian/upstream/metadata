@@ -1,0 +1,32 @@
+# debian/upstream/metadata
+# Part of Debian ‘towncrier’ package.
+#
+# This is free software, and you are welcome to redistribute it under
+# certain conditions; see the end of this file for copyright
+# information, grant of license, and disclaimer of warranty.
+
+%YAML 1.1
+---
+# <URL:https://wiki.debian.org/UpstreamMetadata>
+Name: towncrier
+Contact: Amber Brown <hawkowl@twistedmatrix.com>
+Archive: PyPI
+Bug-Database: https://github.com/twisted/towncrier/issues
+Bug-Submit: https://github.com/twisted/towncrier/issues/new
+Repository: https://github.com/twisted/towncrier.git
+Repository-Browse: https://github.com/twisted/towncrier
+Changelog: https://github.com/twisted/towncrier/blob/master/NEWS.rst
+
+
+# Copyright © 2019–2023 Ben Finney <bignose@debian.org>
+#
+# This is free software; you may copy, modify, and/or distribute this work
+# under the terms of the GNU General Public License, version 3 or later.
+# No warranty expressed or implied.
+# See the file '/usr/share/common-licenses/GPL-3' for details.
+
+# Local variables:
+# coding: utf-8
+# mode: yaml
+# End:
+# vim: fileencoding=utf-8 filetype=yaml :

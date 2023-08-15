@@ -1,5 +1,107 @@
-template-repository (1.0-1) unstable; urgency=medium
+towncrier (22.12.0-2) UNRELEASED; urgency=medium
 
-  * Initial release
+  * debian/patches/avoid-bytes-type-in-test-process-output.patch:
+    * Avoid `bytes` type in test process output.
+  * debian/patches/test-current-version-in-output.patch:
+    * Test the actual current version is in the test output.
+  * debian/patches/test-executable-via-clirunner.patch:
+    * Consistently use click.testing.CliRunner for testing executable
+      command.
+  * Revert to ‘distutils’ build system, to control install directories.
+  * Install to an application directory, not a shared Python library.
+  * Remove tracking images from the documentation.
+  * Build and install package documentation.
+  * Move the “overall documentation” manual page to manual section 7.
+  * Build and install upstream manual page.
 
- -- Tsic404 <liuheng@deepin.org>  Sat, 28 Jan 2023 13:46:49 +0800
+ --
+
+towncrier (22.12.0-1) unstable; urgency=medium
+
+  * The “Claudio Cappelli” release.
+
+  [ Ben Finney ]
+
+  * New upstream release.
+    Highlights since previous release:
+    * Support Python version 3.7 – 3.11.
+    * The ‘check’ command now works for branches that change the news file.
+    * The ‘create’ command now has a ‘-m TEXT’ option to define the content
+      of the newly created fragment.
+    * The ‘build’ command now has a ‘--keep’ option to keep fragments in
+      place.
+    * Support having the release notes for each version in a separate file.
+    * Support fragments not associated with any issue.
+    * Default branch for `towncrier check` is now "origin/main"
+      (not "origin/master").
+  * Declare conformance to “Standards-Version: 4.6.2”.
+    No additional changes needed.
+  * Declare Build-Depends for architecture-independent packages.
+  * Remove a Lintian override for documentation files in wrong directory.
+    The files should in fact not be in the package; Lintian is correct.
+  * Remove cruft from the build directory left there by Twisted Trial.
+    Closes: bug#1027992. Thanks to Chris Lamb for the report.
+  * Update URLs for upstream metadata.
+  * Merge ‘towncrier(1)’ manual page work from sergiosacj.
+    Thanks to Sérgio de Almeida Cipriano Junior.
+
+  [ Sérgio de Almeida Cipriano Junior ]
+
+  * Update UScan configuration to query Python Package Index releases.
+
+ -- Ben Finney <bignose@debian.org>  Thu, 12 Jan 2023 15:22:18 +1100
+
+towncrier (21.9.0-2) unstable; urgency=medium
+
+  * Invoke PyBuild with options to install as an application.
+  * Update Lintian overrides to match current Lintian output.
+  * Declare conformance to “Standards-Version: 4.6.1”.
+    No additional changes needed.
+  * Add Bash command completion for ‘towncrier’ command.
+  * Declare ‘pybuild-plugin-pyproject’ build dependency to use Setuptools.
+  * Declare build dependencies to run test suite.
+  * Override Lintian false positive for package documentation.
+
+ -- Ben Finney <bignose@debian.org>  Wed, 23 Nov 2022 12:18:20 +1100
+
+towncrier (21.9.0-1) unstable; urgency=medium
+
+  * The “Jerri Sloan” release.
+  * New upstream release.
+    Highlights since previous release:
+    * Features now delegated to ‘towncrier’ sub-commands.
+    * New ‘create’ sub-command, to create a news fragment.
+    * New ‘check’ sub-command, to validate the news fragments.
+    * New ‘--config’ option to specify configuration file.
+    * Allow configuration of project ‘version’ and ‘name’.
+  * Document the copyright status of ‘CODE_OF_CONDUCT.md’.
+  * Use the verbatim copyright attribution for the project files.
+  * Declare conformance to “Standards-Version: 4.6.0”.
+  * Remove obsolete field from DEP-12 metadata.
+  * Document the current main packaging development VCS branch.
+  * Update the canonical Debian packaging VCS repository.
+  * Update the project homepage.
+    Closes: bug#986319. Thanks to Paul Wise for the report.
+  * Update the URL for fetching upstream source.
+  * Add specification for AutoPkgTest of the installed package.
+  * Override false positive Lintian check for VCS-* field names.
+  * Add a manual page document for the ‘towncrier’ command.
+  * Install the upstream README document.
+  * Install the upstream change log document.
+
+ -- Ben Finney <bignose@debian.org>  Wed, 27 Apr 2022 22:14:36 +1000
+
+towncrier (19.2.0-1) unstable; urgency=medium
+
+  * The “Tarishi Jain” release.
+  * Initial Debian release.
+    Closes: bug#927454.
+
+ -- Ben Finney <bignose@debian.org>  Mon, 08 Mar 2021 12:26:00 +1100
+
+
+# Local variables:
+# coding: utf-8
+# mode: debian-changelog
+# End:
+# vim: fileencoding=utf-8 filetype=debchangelog :

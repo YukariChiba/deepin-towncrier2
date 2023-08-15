@@ -1,0 +1,43 @@
+Description: Remove tracking images from documentation.
+ .
+ These live-updated “badges” make sense for documentation published at the
+ official site; for local documentation these are less useful, and constitute a
+ breach of privacy.
+ .
+ We remove each tracking image. All of them already have corresponding text
+ links at the end of the document.
+Author: Ben Finney <bignose@debian.org>
+Last-Update: 2023-01-06
+
+diff --git old/README.rst new/README.rst
+--- old/README.rst
++++ new/README.rst
+@@ -1,17 +1,4 @@
+ Hear ye, hear ye, says the ``towncrier``
+ ========================================
+-
+-.. image:: https://img.shields.io/badge/Docs-Read%20The%20Docs-black
+-   :alt: Documentation
+-   :target: https://towncrier.readthedocs.io/
+-
+-.. image:: https://img.shields.io/badge/license-MIT-C06524
+-   :alt: License: MIT
+-   :target: https://github.com/twisted/towncrier/blob/trunk/LICENSE
+-
+-.. image:: https://img.shields.io/pypi/v/towncrier
+-   :alt: PyPI release
+-   :target: https://pypi.org/project/towncrier/
+-
+ ``towncrier`` is a utility to produce useful, summarized news files (also known as changelogs) for your project.
+ 
+
+
+Local variables:
+coding: utf-8
+mode: diff
+time-stamp-format: "%:y-%02m-%02d"
+time-stamp-start: "^Last-Update:[ 	]+"
+time-stamp-end: "$"
+time-stamp-line-limit: 20
+End:
+vim: fileencoding=utf-8 filetype=diff :

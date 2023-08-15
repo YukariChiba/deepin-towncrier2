@@ -1,0 +1,183 @@
+.ds command towncrier
+.ds COMMAND TOWNCRIER
+.\" ==========
+.TH "\*[COMMAND]" 1 "2022-04-26" "towncrier"
+.
+.\" ==========
+.SH NAME
+\*[command] \- manage a useful, summarised news file for your project
+.
+.\" ==========
+.SH SYNOPSIS
+.
+.SY \*[command]
+…
+.OP \-\-config CONFIG_FILE
+.OP \-\-dir FRAGMENTS_DIR
+…
+.YS
+.
+.SY \*[command]
+.OP build
+.OP \-\-name PROJECT_NAME
+.OP \-\-version RELEASE_VERSION
+.OP \-\-date RELEASE_DATE
+.OP \-\-draft
+.OP \-\-yes
+.OP \-\-keep
+.YS
+.
+.SY "\*[command] create"
+.OP \-\-content CONTENT
+.RB [ \-\-edit | \-\-no\-edit ]
+.I FRAGMENT_FILE
+.YS
+.
+.SY "\*[command] check"
+.OP \-\-compare\-with GIT_COMMIT
+.YS
+.
+.SY \*[command]
+.B \-\-help
+.SY \*[command]
+.B \-\-version
+.YS
+.
+.
+.\" ==========
+.SH DESCRIPTION
+.B towncrier
+is a utility to produce useful, summarised news files for your project.
+Rather than reading the VCS history to produce it, or having one single file
+which developers all write to, towncrier reads “news fragments” which contain
+information useful to end users.
+.PP
+.
+.\" ==========
+.SH OPTIONS
+.TP
+\f[B]\-\-config\f[] \f[I]CONFIG_FILE\f[]
+Use the specified \f[I]CONFIG_FILE\f[] to configure program behaviour.
+.
+(Default: \f[B]towncrier.toml\f[] or, if that does not exist,
+\f[B]pyproject.toml\f[])
+.
+.TP
+\f[B]\-\-dir\f[] \f[I]FRAGMENTS_DIR\f[]
+Manage news fragments in the directory \f[I]FRAGMENTS_DIR\f[], relative to the
+project directory.
+.
+(Default: \f[B]newsfragments\f[])
+.
+.TP
+\f[B]\-v\f[]
+.TQ
+\f[B]\-\-version\f[]
+Emit the program version.
+.
+.TP
+\f[B]\-h\f[]
+.TQ
+\f[B]\-\-help\f[]
+Describe how to use the program.
+.
+.\" ==========
+.SH COMMANDS
+.
+.SY
+.OP build
+.OP \-\-name PROJECT_NAME
+.OP \-\-version RELEASE_VERSION
+.OP \-\-date RELEASE_DATE
+.OP \-\-draft
+.OP \-\-yes
+.OP \-\-keep
+.YS
+.P
+.IP
+Discover all the news fragments in \f[I]FRAGMENTS_DIR\f[], and collate them.
+.
+Render them as a news document for project \f[I]PROJECT_NAME\f[] released on
+\f[I]RELEASE_DATE\f[] as version \f[I]RELEASE_VERSION\f[].
+.
+Then, append the generated news document to the configured news file, use Git
+to stage the resulting file, and finally prompt the user for whether to delete
+the news fragment files.
+.
+(Or, if \f[B]\-\-draft\f[] is specified: Emit the news file text to the
+standard error stream, and do not change any files.)
+.
+If \f[B]\-\-yes\f[] is specified, omit the prompt and assume “yes” to delete
+news fragment files.
+
+If \f[B]\-\-keep\f[] is specified, omit the prompt and assume “no” to delete
+news fragment files.
+.
+.SY create
+.OP \-\-content CONTENT
+.RB [ \-\-edit | \-\-no\-edit ]
+.I FRAGMENT_FILE
+.YS
+.P
+.IP
+Create a news fragment with filename \f[I]FRAGMENT_FILE\f[].
+.
+If \f[B]\-\-content\f[] is specified, populate the news fragment file with text
+content \f[I]CONTENT\f[].
+.
+If \f[B]\-\-edit\f[] is specified, launch the default text editor with the news
+fragment file.
+.
+.SY check
+.OP \-\-compare\-with GIT_COMMIT
+.YS
+.P
+.IP
+Compare the current news file and fragments to those in the Git commit
+\f[I]GIT_COMMIT\f[] (default: \f[B]origin/master\f[]); then, if the news file
+is the same, report any additional fragments found.
+.
+.\" ==========
+.SH REPORTING BUGS
+.P
+Please report any bugs using the
+.UR https://github.com/twisted/towncrier/issues/new
+Towncrier project issue tracker
+.UE .
+.
+.\" ==========
+.SH COPYRIGHT
+This manual page is
+Copyright © 2021–2023
+.MT bignose@debian.org
+Ben Finney
+.ME
+and
+.MT sergiosacj@hotmail.com.br
+Sérgio de Almeida Cipriano Junior
+.ME ,
+and is freely available to anyone under certain conditions.
+See the source document for details.
+.
+.\" ==========
+.SH SEE ALSO
+.P
+The
+.UR https://github.com/twisted/towncrier
+Towncrier project upstream home page
+.UE .
+.
+.\" Copyright © 2021 Sérgio de Almeida Cipriano Junior
+.\" <sergiosacj@hotmail.com.br>
+.\" Copyright © 2022–2023 Ben Finney <bignose@debian.org>
+.
+.\" This is free software: you may copy, modify, and/or distribute this work
+.\" under the terms of the GNU General Public License as published by the
+.\" Free Software Foundation; version 3 of that license or any later version.
+.\" No warranty expressed or implied. See the file ‘LICENSE.GPL-3’ for details.
+.
+.\" Local variables:
+.\" coding: utf-8
+.\" mode: nroff
+.\" End:
+.\" vim: fileencoding=utf-8 filetype=nroff :

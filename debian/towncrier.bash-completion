@@ -1,0 +1,116 @@
+# towncrier.bash-completion
+# Part of Debian ‘towncrier’ package.
+#
+# Programmable Bash command completion for the ‘towncrier’ command.
+# See the Bash manual “Programmable Completion” section.
+#
+# This is free software, and you are welcome to redistribute it under
+# certain conditions; see the end of this file for copyright
+# information, grant of license, and disclaimer of warranty.
+
+_have towncrier &&
+_towncrier_completion () {
+    COMPREPLY=()
+
+    local cur="${COMP_WORDS[COMP_CWORD]}"
+    local prev="${COMP_WORDS[COMP_CWORD-1]}"
+
+    local -a options=(
+        -h --help -v --version
+        --config
+        --dir
+    )
+    local -a sub_commands=(
+        build
+        create
+        check
+    )
+
+    case "${prev}" in
+        --config)
+            readarray -t COMPREPLY < <( compgen -G "${cur}*" )
+            compopt -o filenames
+            compopt -o plusdirs
+            ;;
+        --dir)
+            readarray -t COMPREPLY < <( compgen -G "${cur}*" )
+            compopt -o dirnames
+            ;;
+        build)
+            options=(
+                --name --version --date
+                --draft --yes --keep
+            )
+            readarray -t COMPREPLY < <( compgen -W "${options[*]}" -- "$cur" )
+            ;;
+        --name)
+            # We have no useful completion for an arbitrary project name.
+            ;;
+        --version)
+            # We have no useful completion for an arbitrary version string.
+            ;;
+        --date)
+            # We have no useful completion for an arbitrary date.
+            ;;
+        create)
+            options=(
+                --content
+                --edit --no-edit
+            )
+            readarray -t COMPREPLY < <(
+                compgen -W "${options[*]}" -- "$cur"
+                compgen -G "${cur}*"
+            )
+            compopt -o filenames
+            compopt -o plusdirs
+            ;;
+        --content)
+            # We have no useful completion for an arbitrary text message.
+            ;;
+        --edit|--no-edit)
+            readarray -t COMPREPLY < <( compgen -G "${cur}*" )
+            compopt -o filenames
+            compopt -o plusdirs
+            ;;
+        check)
+            options=( --compare-with )
+            readarray -t COMPREPLY < <( compgen -W "${options[*]}" -- "$cur" )
+            # We have no useful completion for an arbitrary hash value.
+            ;;
+        --compare-with)
+            # We have no useful completion for an arbitrary hash value.
+            ;;
+        -v|--valid-chars)
+            # We have no useful completion for a literal regex argument.
+            ;;
+        -n|--numwords|--min|--max)
+            # We have no useful completion for a numeric argument.
+            ;;
+        -c|--count)
+            # We have no useful completion for a numeric argument.
+            ;;
+        *)
+            readarray -t COMPREPLY < <(
+                compgen -W "${options[*]}" -- "$cur"
+                compgen -W "${sub_commands[*]}" -- "$cur"
+            )
+            ;;
+    esac
+
+    return 0
+
+} && complete -F _towncrier_completion towncrier
+
+
+# Copyright © 2015–2023 Ben Finney <bignose@debian.org>
+#
+# This is free software: you may copy, modify, and/or distribute this work
+# under the terms of the GNU General Public License as published by the
+# Free Software Foundation; version 3 of that license or any later version.
+# No warranty expressed or implied. See the file ‘LICENSE.GPL-3’ for details.
+
+# Local variables:
+# coding: utf-8
+# mode: shell-script
+# End:
+# vim: fileencoding=utf-8 filetype=bash :

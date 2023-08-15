@@ -1,4 +1,65 @@
-#!/usr/bin/make -f
+#! /usr/bin/make -f
+#
+# debian/rules
+# Part of Debian ‘towncrier’ package.
+#
+# This is free software, and you are welcome to redistribute it under
+# certain conditions; see the end of this file for copyright
+# information, grant of license, and disclaimer of warranty.
 
+PACKAGE_NAME = towncrier
+
+MAIN_PYTHON_PACKAGE = towncrier
+
+# Current ‘pyproject’ support does not support specifying custom installation
+# directories. We lean on deprecated Distutils.
+export PYBUILD_SYSTEM = distutils
+
+package_share_dir = /usr/share/${PACKAGE_NAME}
+export PYBUILD_INSTALL_ARGS = \
+	--install-lib=${package_share_dir}/ \
+	--install-scripts=${package_share_dir}/
+
+# Send HTTP traffic to the “discard” service during packaging actions.
+export http_proxy = http://127.0.1.1:9/
+export https_proxy = ${http_proxy}
+
+export PYBUILD_TEST_ARGS = "{dir}"/src/
+
+# Twisted Trial creates temporary Python modules and doesn't clean up.
+twisted_trial_cruft = ${MAIN_PYTHON_PACKAGE}.test.*
+export PYBUILD_AFTER_TEST = rm -r "{build_dir}"/${twisted_trial_cruft}
+
+DOCUMENTATION_DIR = {dir}/docs
+DOCUMENTATION_BUILD_DIR = ${DOCUMENTATION_DIR}/_build
+DOCUMENTATION_BUILD_HTML_DIR = ${DOCUMENTATION_BUILD_DIR}/html
+DOCUMENTATION_BUILD_MANPAGE_DIR = ${DOCUMENTATION_BUILD_DIR}/man
+
+export PYBUILD_AFTER_BUILD = \
+	make SPHINXBUILD='python3 -m sphinx' \
+	    PYTHONPATH="{dir}/src:$$PYTHONPATH" \
+	    --directory ${DOCUMENTATION_DIR} \
+	    html man
+
+
 %:
-	dh $@
+	dh $@ --with python3,sphinxdoc --buildsystem=pybuild
+
+
+override_dh_installchangelogs:
+	dh_installchangelogs NEWS.rst
+
+
+# Copyright © 2010–2023 Ben Finney <bignose@debian.org>
+#
+# This is free software: you may copy, modify, and/or distribute this work
+# under the terms of the GNU General Public License as published by the
+# Free Software Foundation; version 3 of that license or any later version.
+# No warranty expressed or implied.
+
+
+# Local variables:
+# coding: utf-8
+# mode: gnumakefile
+# End:
+# vim: fileencoding=utf-8 filetype=make :

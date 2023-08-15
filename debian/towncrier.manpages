@@ -1,0 +1,13 @@
+# debian/towncrier.manpages
+# Manual page files to install for the ‘towncrier’ package.
+# Manual page: ‘dh_installman(1)’.
+
+debian/towncrier.1
+docs/_build/man/towncrier.7
+
+
+# Local variables:
+# coding: utf-8
+# mode: conf-space
+# End:
+# vim: fileencoding=utf-8 filetype=conf :
